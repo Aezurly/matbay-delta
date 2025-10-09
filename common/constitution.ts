@@ -1,7 +1,12 @@
 // Types
-interface UserConstitution {
-  user: string;
-  joinDate: string;
+enum ConstitutionTypes {
+  GRADE = 0
+}
+
+enum ConstitutionGradeStates {
+  STARTING = 0,
+  VOTING = 1,
+  CLOSED = 2
 }
 
 interface Constitution {
@@ -13,10 +18,24 @@ interface Constitution {
   userConstitution: UserConstitution[]
 }
 
+interface UserConstitution {
+  user: string;
+  joinDate: string;
+}
+
 // Requests
 interface CreateConstitutionRequestBody {
   name: string,
-  description: string,
+  description: string,      // TODO : optional ?
+
+  // TODO : implement,
+  type: ConstitutionTypes,
+  nSongs: number,
 }
 
-export type { CreateConstitutionRequestBody, Constitution, UserConstitution };
+export type {
+  Constitution,
+  ConstitutionTypes,
+  CreateConstitutionRequestBody,
+  UserConstitution
+};

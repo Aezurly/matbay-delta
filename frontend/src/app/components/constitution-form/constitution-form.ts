@@ -1,6 +1,8 @@
 import { Component, inject } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Constitutions } from '../../services/constitutions';
+
+const N_SONGS_DEFAULT = 1;
 
 @Component({
   selector: 'app-constitution-form',
@@ -16,12 +18,16 @@ export class ConstitutionForm {
 
   constructor() {
     this.form = new FormGroup({
-      name: new FormControl(''),
-      description: new FormControl('')
+      name: new FormControl('', Validators.required),
+      description: new FormControl(''),
+      nSongs: new FormControl(N_SONGS_DEFAULT, Validators.required),
     });
   }
 
   onSubmit(): void {
+    // Check if all required fields are set
+    if (!this.form.valid) return;
+
     // Send data
     this.constitutions.create(this.form.value);
 
